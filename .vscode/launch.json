@@ -1,18 +1,14 @@
+
 {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug TaskManager",
-            "type": "cppdbg",
+            "name": "Debug TaskManager (LLDB)",
+            "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/TaskManager.exe",
             "args": [],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "C:/Program Files/mingw-w64/mingw64/bin/gdb.exe",
             "preLaunchTask": "Build TaskManager"
         }
     ]
