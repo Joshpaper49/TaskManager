@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <sstream>
 #include <vector>
+#include <string>
 
 class Task
 {
@@ -15,6 +16,7 @@ private:
     std::string task_name = "Untitled";
     std::string description = "";
     bool completion_status = false;
+    
     std::vector<std::string> wrapText(const std::string &text, const size_t max_width);
 
 public:
