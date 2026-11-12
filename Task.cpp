@@ -17,10 +17,16 @@ Task::Task(const std::chrono::year_month_day &dateDue, const std::string &task_n
 
 std::ostream &operator<<(std::ostream &os, const Task &rhs)
 {
-    /*  return os << rhs.dateCreated << "   " << rhs.dateDue << "   " << rhs.description <<
-     "   " << rhs.task_name << "  " << std::boolalpha << rhs.completion_status << std::endl; */
+    std::vector<std::string> line_filter = Task::wrapText(rhs.description, 40);
 
-    return os << std::left << std::setw(12) << rhs.dateCreated << std::setw(12) << rhs.dateDue << std::setw(40) << rhs.description << rhs.task_name << std::boolalpha << std::right << std::setw(6) << rhs.completion_status;
+    //first line
+    os << std::left << std::setw(12) << rhs.dateCreated << std::setw(12) << rhs.dateDue << std::setw(40) << line_filter.at(0) << rhs.task_name << std::boolalpha << std::right << std::setw(6) << rhs.completion_status << '\n';
+
+    std::for_each(line_filter.begin() + 1, line_filter.end(), [&os] (const std::string &line) {
+        os << std::setw(24) << "" << std::left << std::setw(40) << line << '\n';
+    });
+
+    return os;
 }
 
 std::vector<std::string> Task::wrapText(const std::string &text, const size_t max_width)

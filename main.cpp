@@ -23,7 +23,7 @@ int main() {
     std::cout << test.at(0) << std::endl;
 
     test.at(0).changeName("Linux");
-    test.at(0).changeDescription("My ROMI stuff is going well!");
+    test.at(0).changeDescription("My ROMI stuff is goingfgfgfgfgfgfg f gf g fg fg fg fg fg fg fg fg fg fg fgg well ppppppppppppppppppppppppppppppppppppppppppppppppppppppp!");
     test.at(0).changeStatus();
 
     std::cout << test.at(0) << std::endl;

@@ -17,7 +17,7 @@ private:
     std::string description = "";
     bool completion_status = false;
     
-    std::vector<std::string> wrapText(const std::string &text, const size_t max_width);
+    static std::vector<std::string> wrapText(const std::string &text, const size_t max_width);
 
 public:
     Task(const std::chrono::year_month_day &dateDue, const std::string &task_name, const std::string &description);
