@@ -1,11 +1,12 @@
 #include "Task.h"
 
-Task::Task(const std::chrono::year_month_day &dateDue, const std::string &task_name, const std::string &description) : dateCreated{std::chrono::floor<std::chrono::days>(std::chrono::system_clock::now())}, dateDue{dateDue}, task_name{task_name}, description{description}
+Task::Task(const std::chrono::year_month_day &dateDue, const std::string &task_name, const std::string &description, const std::chrono::year_month_day &dateCreated) : dateDue{dateDue}, task_name{task_name}, description{description}, dateCreated{dateCreated}
 
 // should make this a helper function in taskmanger to filter parse the user input before passing it into the task. The task shouldn't have to do it
 {
     /* std::istringstream in{dueDateStr};
      std::chrono::year_month_day parsedDate;
+     //basically the string should be made like year-month-day
 
      in >> std::chrono::parse("%F", parsedDate);
 
@@ -20,14 +21,22 @@ std::ostream &operator<<(std::ostream &os, const Task &rhs)
     std::vector<std::string> line_filter = Task::wrapText(rhs.description, 40);
 
     //first line
-    os << std::left << std::setw(12) << rhs.dateCreated << std::setw(12) << rhs.dateDue << std::setw(40) << line_filter.at(0) << rhs.task_name << std::boolalpha << std::right << std::setw(6) << rhs.completion_status << '\n';
+    os << std::left << std::setw(12) << rhs.dateCreated << std::setw(12) << rhs.dateDue << std::setw(40) << line_filter.at(0) << std::setw(25) << rhs.task_name << std::boolalpha << rhs.completion_status << '\n';
 
-    std::for_each(line_filter.begin() + 1, line_filter.end(), [&os] (const std::string &line) {
+    std::for_each(line_filter.begin()+1, line_filter.end(), [&os] (const std::string &line) {
         os << std::setw(24) << "" << std::left << std::setw(40) << line << '\n';
     });
 
     return os;
 }
+
+std::chrono::year_month_day Task::getCurrentLocalDate() {
+    auto timepoint_now = std::chrono::system_clock::now();
+    auto timepoint_local_now = std::chrono::current_zone()->to_local(timepoint_now);
+    auto local_now = std::chrono::year_month_day(std::chrono::floor<std::chrono::days>(timepoint_local_now));
+
+    return local_now;
+};
 
 std::vector<std::string> Task::wrapText(const std::string &text, const size_t max_width)
 {
@@ -84,6 +93,8 @@ std::vector<std::string> Task::wrapText(const std::string &text, const size_t ma
 
     if(!currentLine.empty())
         result.push_back(currentLine);
+    if(result.empty())
+        result.push_back("");
 
     return result;
 }
@@ -117,4 +128,9 @@ void Task::changeDescription(const std::string &description)
 void Task::changeStatus()
 {
     completion_status = !completion_status;
+}
+
+bool Task::isOverdue() {
+    std::chrono::year_month_day current_date {getCurrentLocalDate()};
+    return (current_date > dateDue); 
 }

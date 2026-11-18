@@ -12,21 +12,21 @@ int main() {
 
     std::vector <Task> test{};
 
-    test.emplace_back(test_date, "Computer", "I have to create my own PC in two days");
-
-    std::cout << test.at(0) << std::endl;
+    test.emplace_back(test_date);
 
     std::chrono::year_month_day new_due_date {std::chrono::year(2023), std::chrono::month(3), std::chrono::day(4)};
 
     test.at(0).changeDueDate(new_due_date);
 
-    std::cout << test.at(0) << std::endl;
+    test.emplace_back(new_due_date, "My Stuff", "Implement getCurrentLocalDate to output local timezone current date then make sure it works as a default param for dateCreated that can be overrun has to use some toLocal method", test_date);
 
     test.at(0).changeName("Linux");
-    test.at(0).changeDescription("My ROMI stuff is goingfgfgfgfgfgfg f gf g fg fg fg fg fg fg fg fg fg fg fgg well ppppppppppppppppppppppppppppppppppppppppppppppppppppppp!");
     test.at(0).changeStatus();
 
-    std::cout << test.at(0) << std::endl;
+
+    for(auto &item: test) {
+        std::cout << item << std::endl;
+    }
 
 
     return 0;
