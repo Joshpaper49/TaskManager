@@ -1,19 +1,7 @@
 #include "Task.h"
 
 Task::Task(const std::chrono::year_month_day &dateDue, const std::string &task_name, const std::string &description, const std::chrono::year_month_day &dateCreated) : dateDue{dateDue}, task_name{task_name}, description{description}, dateCreated{dateCreated}
-
-// should make this a helper function in taskmanger to filter parse the user input before passing it into the task. The task shouldn't have to do it
 {
-    /* std::istringstream in{dueDateStr};
-     std::chrono::year_month_day parsedDate;
-     //basically the string should be made like year-month-day
-
-     in >> std::chrono::parse("%F", parsedDate);
-
-     if (!in.fail())
-     {
-         dateDue = parsedDate;
-     } */
 }
 
 std::ostream &operator<<(std::ostream &os, const Task &rhs)

@@ -4,6 +4,8 @@
 #include <chrono>
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <cctype>
 
 
 class TaskManager {
@@ -15,12 +17,12 @@ class TaskManager {
     static std::chrono::year_month_day toDate(std::string dateStr);
 
     public:
-    void menu();
+    bool menu();
     void viewTasks();
     void loadTaskList();
     bool addTask();
     void editTask(Task &task);
-    void exit();
+    bool confirmExit();
 
     TaskManager() = default;
 
