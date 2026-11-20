@@ -15,13 +15,14 @@ class TaskManager {
     std::vector<Task> overdueTasks{};
 
     static std::chrono::year_month_day toDate(std::string dateStr);
+    void printTaskList(const std::vector<Task> &list) const;
 
     public:
     bool menu();
-    void viewTasks();
+    std::vector<Task>& viewTasks(bool specificList = false);
     void loadTaskList();
     bool addTask();
-    void editTask(Task &task);
+    void editTask(std::vector<Task> &list);
     bool confirmExit();
 
     TaskManager() = default;

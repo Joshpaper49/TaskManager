@@ -29,7 +29,7 @@ bool TaskManager::menu() {
    std::cout << "Enter your choice: ";
    std::getline(std::cin, input);
 
-   //going to have to work on understanding this one
+   //Attempt to read input
    if (!std::getline(std::cin, input)) {
       std::cout << "\nInput stream closed. Exiting.\n";
       isDone = true;
@@ -57,7 +57,8 @@ bool TaskManager::menu() {
          break;
       }
       case 'E': {
-         //editTask();
+         std::vector<Task>& chosen_list = viewTasks(true);
+         editTask(chosen_list);
          break;
       }
       case 'X': {
@@ -74,4 +75,79 @@ bool TaskManager::menu() {
 
 
    return isDone;
+}
+
+std::vector<Task>& TaskManager::viewTasks(bool specificList) {
+   //prints all of the task lists
+   if(!specificList) {
+      std::cout << "Current Tasks" << std::endl;
+      std::cout << "============" << std::endl;
+      printTaskList(currentTasks);
+
+      std::cout << "Completed Tasks" << std::endl;
+      std::cout << "============" << std::endl;
+      printTaskList(completedTasks);
+
+      std::cout << "Overdue Tasks" << std::endl;
+      std::cout << "============" << std::endl;
+      printTaskList(overdueTasks);
+
+      return currentTasks;
+
+   } 
+   //takes in a choice, prints the list, and outputs a reference to the chosen task list
+   else {
+      std::cout << "[1] Current Tasks" << std::endl;
+      std::cout << "[2] Completed Tasks" << std::endl;
+      std::cout << "[3] Overdue Tasks" << std::endl;
+
+      char input;
+
+      while(true) {
+         std::cout << "Enter your choice (1-3): ";
+
+         if(!(std::cin >> input)) {
+            std::cout << "Input unavailable. Exiting";
+            return;
+         } 
+         
+         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');         
+         
+         if (input == '1' || input == '2' || input == '3') {
+            break;
+         }
+
+         std::cout << "Invalid input. Try again" << std::endl;
+      }
+
+      switch(input) {
+         case '1': {
+            printTaskList(currentTasks);
+            return currentTasks;
+         }
+
+         case '2': {
+            printTaskList(completedTasks);
+            return completedTasks;
+         }
+
+         case '3': {
+            printTaskList(overdueTasks);
+            return overdueTasks;
+         }
+
+      }
+   }
+
+}
+
+void TaskManager::printTaskList(const std::vector<Task> &list) const {
+   if (list.empty()) {
+        std::cout << "No tasks to display.\n";
+        return;
+   }
+
+   for(const auto &item: list) {
+      std::cout << item << std::endl;
+   }
 }
