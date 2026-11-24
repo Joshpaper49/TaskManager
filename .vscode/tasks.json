@@ -11,6 +11,7 @@
                 "-g",
                 "main.cpp",
                 "Task.cpp",
+                "TaskManager.cpp",
                 "-o",
                 "TaskManager.exe"
             ],

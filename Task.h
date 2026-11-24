@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <stdexcept>
 
 class Task
 {
@@ -23,10 +24,10 @@ private:
 public:
     Task(const std::chrono::year_month_day &dateDue, const std::string &task_name = "Untitled", const std::string &description = "", const std::chrono::year_month_day &dateCreated = getCurrentLocalDate());
 
-    bool changeDueDate(const std::chrono::year_month_day &date);
-    bool changeName(const std::string &name);
-    void changeDescription(const std::string &description);
-    void changeStatus();
+    bool setDueDate(const std::chrono::year_month_day &date);
+    bool setName(const std::string &name);
+    void setDescription(const std::string &description);
+    void setStatus();
     bool isOverdue();
 
     ~Task() = default;

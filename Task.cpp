@@ -2,6 +2,9 @@
 
 Task::Task(const std::chrono::year_month_day &dateDue, const std::string &task_name, const std::string &description, const std::chrono::year_month_day &dateCreated) : dateDue{dateDue}, task_name{task_name}, description{description}, dateCreated{dateCreated}
 {
+    if(!dateDue.ok()) {
+        throw std::invalid_argument("Invalid due date.");
+    }
 }
 
 std::ostream &operator<<(std::ostream &os, const Task &rhs)
@@ -87,7 +90,7 @@ std::vector<std::string> Task::wrapText(const std::string &text, const size_t ma
     return result;
 }
 
-bool Task::changeDueDate(const std::chrono::year_month_day &date)
+bool Task::setDueDate(const std::chrono::year_month_day &date)
 {
     if (!date.ok())
     {
@@ -98,7 +101,7 @@ bool Task::changeDueDate(const std::chrono::year_month_day &date)
     return true;
 }
 
-bool Task::changeName(const std::string &name)
+bool Task::setName(const std::string &name)
 {
 
     if (name.empty())
@@ -108,12 +111,12 @@ bool Task::changeName(const std::string &name)
     return true;
 }
 
-void Task::changeDescription(const std::string &description)
+void Task::setDescription(const std::string &description)
 {
     this->description = description;
 }
 
-void Task::changeStatus()
+void Task::setStatus()
 {
     completion_status = !completion_status;
 }
