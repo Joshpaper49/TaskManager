@@ -17,6 +17,7 @@ std::optional<std::chrono::year_month_day> TaskManager::toDate(std::string dateS
 
 bool TaskManager::menu() {
 
+   std::cout << std::endl;
    std::cout << "Task Manager" << std::endl;
    std::cout << "============" << std::endl;
    std::cout << "L - Load Task List" << std::endl;
@@ -25,8 +26,11 @@ bool TaskManager::menu() {
    std::cout << "E - Edit Task" << std::endl;   
    std::cout << "X - Exit" << std::endl;
 
+   std::cout << std::endl;
    std::string input;
    std::cout << "Enter your choice: ";
+
+   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
    //Attempt to read input
    if (!std::getline(std::cin, input)) {
       std::cout << "\nInput stream closed. Exiting.\n";
@@ -46,8 +50,7 @@ bool TaskManager::menu() {
          break;
       }
       case 'A': {
-         std::vector<Task>* chosen_list = selectList();
-         addTask(*chosen_list);
+         addTask(currentTasks);
          break;
       }
       case 'V': {
@@ -76,10 +79,12 @@ bool TaskManager::menu() {
 }
 
 bool TaskManager::confirmExit() {
+   std::cout << "Saving list and ending program." << std::endl;
    return true;
 }
 
 bool TaskManager::addTask(std::vector<Task> &list) {
+   std::cout << std::endl;
    std::chrono::year_month_day parsedDueDate;
 
    //getting dutDate
@@ -107,9 +112,13 @@ bool TaskManager::addTask(std::vector<Task> &list) {
     std::numeric_limits<std::streamsize>::max(), '\n'
    );
 
+   std::cout << std::endl;
+
+   std::cout << "Enter task name: ";
    std::string task_name;
    std::getline(std::cin, task_name);
 
+   std::cout << "Enter the task description: ";
    std::string description;
    std::getline(std::cin, description);
 
@@ -130,14 +139,17 @@ void TaskManager::editTask(std::vector<Task> &list)
 
 void TaskManager::viewTasks() {
    //prints all of the task lists
+      std::cout << std::endl;
       std::cout << "Current Tasks" << std::endl;
       std::cout << "============" << std::endl;
       printTaskList(currentTasks);
 
+      std::cout << std::endl;
       std::cout << "Completed Tasks" << std::endl;
       std::cout << "============" << std::endl;
       printTaskList(completedTasks);
 
+      std::cout << std::endl;
       std::cout << "Overdue Tasks" << std::endl;
       std::cout << "============" << std::endl;
       printTaskList(overdueTasks);
