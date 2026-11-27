@@ -134,8 +134,40 @@ bool TaskManager::addTask(std::vector<Task> &list) {
 
 void TaskManager::editTask(std::vector<Task> &list)
 {
-   std::cout << "Edit task list is not implemented yet.\n";
+
+   while (true) {
+   std::cout << "Edit Menu" << std::endl;
+   std::cout << "============" << std::endl;
+   std::cout << "Select your task using numbers 1 to " << list.size() << std::endl;   
+   std::cout << "X - Exit\n" << std::endl;
+
+   std::cin.ignore(
+    std::numeric_limits<std::streamsize>::max(), '\n'
+   );
+
+   char input;
+   std::cout << "Enter your choice: ";
+   std::cin >> input;
+   input = static_cast<char>(std::toupper(static_cast<unsigned char>(input)));
+
+   if(input == 'x') {
+      std::cout << "Exiting..." << std::endl;
+      break;
+   }
+   if(input > 0 && input <= list.size()) {
+      if(!editMenu())
+         continue;
+      else {
+         continue;
+      }
+   } else {
+      std::cout << "Invalid input. Please try again." << std::endl;
+      continue;
+   }
+   }
 }
+
+bool editMenu() {}
 
 void TaskManager::viewTasks() {
    //prints all of the task lists
@@ -219,11 +251,11 @@ void TaskManager::printTaskList(const std::vector<Task> &list) const {
    //header
    printHeader();
 
-   for(const auto &item: list) {
-      std::cout << item << std::endl;
+   for (std::size_t i = 0; i < list.size(); ++i) {
+    std::cout << "[" << i + 1 << "] " << list.at(i) << '\n';
    }
 }
 
 void TaskManager::printHeader() const {
-       std::cout << std::left << std::setw(15) << "Date Created" << std::setw(15) << "Date Due" << std::setw(40) << "Description" << std::setw(25) << "Task Name" <<  "Completion Status" << '\n';
+       std::cout << std::left << "#" << std::setw(15) << "Date Created" << std::setw(15) << "Date Due" << std::setw(40) << "Description" << std::setw(25) << "Task Name" <<  "Completion Status" << '\n';
 }

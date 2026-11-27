@@ -12,10 +12,10 @@ std::ostream &operator<<(std::ostream &os, const Task &rhs)
     std::vector<std::string> line_filter = Task::wrapText(rhs.description, 40);
 
     //first line
-    os << std::left << std::setw(15) << rhs.dateCreated << std::setw(15) << rhs.dateDue << std::setw(40) << line_filter.at(0) << std::setw(25) << rhs.task_name << std::boolalpha << rhs.completion_status << '\n';
+    os << std::left << "#"  << std::setw(15) << rhs.dateCreated << std::setw(15) << rhs.dateDue << std::setw(40) << line_filter.at(0) << std::setw(25) << rhs.task_name << std::boolalpha << rhs.completion_status << '\n';
 
     std::for_each(line_filter.begin()+1, line_filter.end(), [&os] (const std::string &line) {
-        os << std::setw(24) << "" << std::left << std::setw(40) << line << '\n';
+        os << std::setw(31) << "" << std::left << std::setw(40) << line << '\n';
     });
 
     return os;

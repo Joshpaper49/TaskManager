@@ -19,6 +19,7 @@ class TaskManager {
     static std::optional<std::chrono::year_month_day> toDate(std::string dateStr);
     void printTaskList(const std::vector<Task> &list) const;
     void printHeader() const;
+    bool editMenu();
 
 
     public:
@@ -29,6 +30,7 @@ class TaskManager {
     bool addTask(std::vector<Task> &list);
     void editTask(std::vector<Task> &list);
     bool confirmExit();
+    
 
     TaskManager() = default;
 
